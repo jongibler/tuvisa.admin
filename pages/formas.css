@@ -1,7 +1,11 @@
-.btn-remove{
-    font-weight: bold;    
+.btn-remove {
+    font-weight: bold;
 }
 
 .form-row {
-    margin-bottom:15px;
+    margin-bottom: 15px;
+}
+
+.checkbox-inline {
+    margin-bottom: 10px;
 }
