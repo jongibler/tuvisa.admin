@@ -34,14 +34,10 @@
                                 Última modificación por <i>Fulano</i> el día: <i>23 agosto 2016</i>
                             </div>
                             <div class="panel-body">
-
-                                <form role="form">
-                                    <div class="form-group">
-                                        <label>Fecha de última modificación</label>
-                                        <p class="form-control-static">
-                                            <%= new Date().toString(); %>
-                                        </p>
-                                    </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+  <form role="form">
+                                   
                                     <label>Pagado</label>
                                     <div class="form-group input-group">
                                         <span class="input-group-addon">$</span>
@@ -166,8 +162,8 @@
                                         </div>                                            
                                         </div>
                                         
-                                        <div class="form-group">
-                                            <label for="">Dirección de Envío</label>
+                                        <div class="col-xs-12 col-sm-6 col-lg-8 form-div">
+                                            <label for="">Dirección de Envío</label>                                            
                                             <textarea class="form-control" rows="3"></textarea>
                                         </div>
 
@@ -185,12 +181,20 @@
                                     </div>
                                     
                             </form>
+
+                                    </div>
+                                    <div class="col-lg-6"></div>
+                                </div>
+
+                              
                         </div>
                         <!-- /.panel-body -->            
                     </div>
                     <!-- /.panel -->
                 </div>
                 <!--/col container-->
+
+                <div class="col-lg-12"></div>
             </div>    
             <!--/main row -->
             
