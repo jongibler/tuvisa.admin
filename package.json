@@ -1,0 +1,17 @@
+{
+  "name": "tuvisa",
+  "version": "1.0.0",
+  "description": "[SB Admin 2](http://startbootstrap.com/template-overviews/sb-admin-2/) is an open source, admin dashboard template for [Bootstrap](http://getbootstrap.com/) created by [Start Bootstrap](http://startbootstrap.com/).",
+  "main": "app.js",
+  "dependencies": {
+    "bower": "^1.7.9",
+    "ejs": "^2.5.1",
+    "express": "^4.14.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "JG",
+  "license": "ISC"
+}

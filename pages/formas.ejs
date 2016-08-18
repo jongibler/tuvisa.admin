@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include head %>
+
+        <link rel="stylesheet" href="/pages/formas.css">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+
+</head>
+
+
+<body>
+
+    <div id="wrapper">
+
+        <% include nav %>
+
+            <div id="page-wrapper">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Forma de Servicio</h1>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Trámite capturado por <i>Lalo</i> el día: <i>21 agosto 2016</i>
+                            </div>
+                            <div class="panel-heading">
+                                Última modificación por <i>Fulano</i> el día: <i>23 agosto 2016</i>
+                            </div>
+                            <div class="panel-body">
+
+                                <form role="form">
+                                    <div class="form-group">
+                                        <label>Fecha de última modificación</label>
+                                        <p class="form-control-static">
+                                            <%= new Date().toString(); %>
+                                        </p>
+                                    </div>
+                                    <label>Pagado</label>
+                                    <div class="form-group input-group">
+                                        <span class="input-group-addon">$</span>
+                                        <input type="text" class="form-control" placeholder="0.00">
+                                    </div>
+                                    <label>Debe</label>
+                                    <div class="form-group input-group">
+                                        <span class="input-group-addon">$</span>
+                                        <input type="text" class="form-control" placeholder="0.00">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Formas de Pago</label>
+                                        <select class="form-control">
+                                                    <option>Efectivo</option>
+                                                    <option>Transferencia</option>
+                                                    <option>Depósito</option>
+                                                    <option>Cheque</option>
+                                                    <option>Tarjeta de Crédito</option>
+                                                </select>
+                                    </div>
+
+                                    <hr>
+
+                                    <div class="form-group" style="padding-bottom:25px;">
+                                        <label>Servicios</label>
+                                        <table id="servicesTable" class="table table-striped">
+                                            <thead>
+                                                <th>País</th>
+                                                <th>Tipo de Servicio</th>
+                                                <th>Importe</th>
+                                                <th></th>
+                                            </thead>
+                                            <tr>
+                                                <td>
+                                                    <select class="form-control" ">
+                                                        <option>Australia</option>
+                                                        <option>China</option>
+                                                        <option>Vietnam</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control ">
+                                                        <option>Turista</option>
+                                                        <option>Estudios</option>
+                                                        <option>Negocio</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group input-group ">
+                                                        <span class="input-group-addon ">$</span>
+                                                        <input type="text " class="form-control " placeholder="0.00 ">
+                                                    </div>
+                                                </td>
+                                                <td><button class="btn btn-danger btn-remove " onclick="$(this).parent().parent().remove(); return false; ">X</button></td>              
+                                            </tr>
+                                        </table>
+                                         
+                                        <button class="btn btn-success pull-right " onclick="btnPlusServices_click();return false; ">Agregar Servicio</button>                                        
+
+                                    </div>
+
+                                    <hr>                                    
+                                    
+                                    <div class="form-group" style="padding-bottom:35px;">
+                                        <label>Personas</label>
+                                        <table id="personsTable" class="table table-striped" width="100%" style="width:100%;">
+                                            <thead>
+                                                <th width="70%"></th>
+                                                <th width="30%"></th>
+                                            </thead>
+
+                                            <tr>
+                                                <td><input class="form-control " placeholder="Nombre de la persona... "></td>
+                                                <td><div class="col-sm-2"><button class="btn btn-danger btn-remove" onclick="return false; ">X</button></div></td>
+                                            </tr>
+                                        </table>
+                                        <button class="btn btn-primary pull-right" onclick="btnPlusPerson_click();return false; ">Agregar Persona</button>                           
+                                    </div>
+                                    
+                                    <hr>
+                                    
+                                    <div class="form-group " >
+                                        <div class="col-xs-12 col-sm-6 col-lg-8 form-div" >
+                                            <label>Empresa</label>
+                                            <input class="form-control " placeholder="Nombre de la empresa... ">
+
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6 col-lg-8 form-div">
+                                            <label>Contacto</label>
+                                            <input class="form-control " placeholder="Nombre de la persona... ">
+
+
+                                            
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6 col-lg-8 form-div">
+                                            <label>Teléfono móvil</label>
+                                            <input class="form-control " placeholder="Número de teléfono... ">
+
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6 col-lg-8 form-div">
+                                            <label>Teléfono(s)</label>
+                                            <input class="form-control " placeholder="Número(s) de teléfono... ">                                            
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6 col-lg-8 form-div">
+                                            <label>E-mail</label>
+                                            <input class="form-control " placeholder="alguien@correo.com ">
+
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6 col-lg-8 form-div">
+                                            <div class="form-group">
+                                            <label>¿Es foráneo?</label>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" value="yes" name="rdbForeaneo">Sí
+                                                </label>
+                                            </div>                                    
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" value="no" name="rdbForeaneo">No
+                                                </label>
+                                            </div>                                            
+                                        </div>                                            
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="">Dirección de Envío</label>
+                                            <textarea class="form-control" rows="3"></textarea>
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-6 col-lg-8 form-div">
+                                            <label>Fecha Viaje México</label>
+                                            <input class="form-control datepicker" placeholder="día/mes/año">                                            
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6 col-lg-8 form-div">
+                                            <label>Fecha Entrega</label>
+                                            <input class="form-control datepicker" placeholder="día/mes/año">
+
+                                        </div>
+
+                                        
+                                    </div>
+                                    
+                            </form>
+                        </div>
+                        <!-- /.panel-body -->            
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!--/col container-->
+            </div>    
+            <!--/main row -->
+            
+        </div>
+        <!-- /#page-wrapper -->
+    
+    </div>
+    <!-- /#wrapper -->
+
+    <% include scripts %>
+
+    <script src="/pages/formas.js "></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+    <script>
+        $( function() {
+            $( ".datepicker" ).datepicker();
+        } );
+    </script>
+
+
+</body>
+
+</html>
