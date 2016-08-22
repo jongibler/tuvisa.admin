@@ -1,6 +1,7 @@
 var express = require('express');
 var app = module.exports = express();
 app.set('view engine', 'ejs');
+
 app.use('/js', express.static('js'));
 app.use('/dist', express.static('dist'));
 app.use('/pages', express.static('pages'));
@@ -10,8 +11,12 @@ app.get('/', function (req, res) {
   res.render(__dirname + '/pages/index.ejs');
 });
 
-app.get('/formas', function (req, res) {
-  res.render(__dirname + '/pages/formas.ejs');
+app.get('/tramites', function (req, res) {
+  res.render(__dirname + '/pages/tramites.ejs');
+});
+
+app.get('/tramite', function (req, res) {
+  res.render(__dirname + '/pages/tramite.ejs');
 });
 
 app.get('/documentos', function (req, res) {
