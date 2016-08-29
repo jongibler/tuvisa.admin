@@ -5,7 +5,16 @@
     <% include head %>
 
         <link rel="stylesheet" href="/pages/tramite.css">
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+        
+        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+
+        <style>
+            [ng\:cloak],
+            [ng-cloak],
+            .ng-cloak {
+                display: none !important;
+            }
+        </style>
 
 </head>
 
@@ -16,23 +25,23 @@
 
         <% include nav %>
 
-            <div id="page-wrapper">
+            <div id="page-wrapper" ng-app="tuVisaAdmin" ng-controller="tramiteController" ng-cloak>
 
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Trámite No. 13245</h1>
-                        <h2>Fulanito Perenganito</h2>
+                        <h1 class="page-header" ng-show="tramite.numero == 0"><i>Trámite Nuevo</i></h1>
+                        <h1 class="page-header" ng-show="tramite.numero != 0">Trámite Número <i>{{tramite.Numero}}</i></h1>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="panel panel-default">
-                            <div class="panel-heading">
-                                Trámite capturado por <i>Lalo</i> el día: <i>21 agosto 2016</i>
+                            <div class="panel-heading" ng-show="tramite.capturadoPor">
+                                Trámite capturado por <i>{{tramite.capturadoPor}}</i> en la fecha: <i>{{tramite.fechaCaptura}}</i>
                             </div>
-                            <div class="panel-heading">
-                                Última modificación por <i>Fulano</i> el día: <i>23 agosto 2016</i>
+                            <div class="panel-heading" ng-show="tramite.modificadoPor">
+                                Última modificación por <i>{{tramite.modificadoPor}}</i> el día: <i>tramite.fechaUltimaModificacion</i>
                             </div>
                             <div class="panel-body">
                                 <div class="row">
@@ -43,202 +52,244 @@
                                                     Estado del trámite
                                                 </label>
                                                 <div class="form-group input-group">
-                                                    <select class="form-control" ">                                                        
-                                                        <option>PENDIENTE PAGO</option>
-                                                        <option>PAGADO</option>
+                                                    <select class="form-control" ">                                                                                                               
+                                                        <option>PENDIENTE</option>
                                                         <option>ENTREGADO</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <hr>
                                             <div class="row form-row ">
-                                                <div class="col-md-6 ">
+                                                <div class="col-md-4 ">
+                                                    <label>Importe Total</label>
+                                                    <div class="form-group input-group ">
+                                                        <span class="input-group-addon ">$</span>
+                                                        <input type="text " class="form-control " readonly value="{{importeTotal.toLocaleString()}}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 ">
                                                     <label>Pagado</label>
-                                                    <div class="form-group input-group">
-                                                        <span class="input-group-addon">$</span>
-                                                        <input type="text" class="form-control" placeholder="0.00">
+                                                    <div class="form-group input-group ">
+                                                        <span class="input-group-addon ">$</span>
+                                                        <input type="text " class="form-control " readonly value="{{importePagado.toLocaleString()}}">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 ">
+                                                <div class="col-md-4 ">
                                                     <label>Debe</label>
-                                                    <div class="form-group input-group">
-                                                        <span class="input-group-addon">$</span>
-                                                        <input type="text" class="form-control" placeholder="0.00">
+                                                    <div class="form-group input-group ">
+                                                        <span class="input-group-addon ">$</span>
+                                                        <input type="text " class="form-control " readonly value="{{importeDebe.toLocaleString()}}">
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <label>Formas de pago</label>
-                                            <div class="form-group">
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox">Efectivo
-                                                </label>
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox">Transferencia
-                                                </label>
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox">Depósito
-                                                </label>
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox">Cheque
-                                                </label>
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox">Tarjeta de Crédito
-                                                </label>
+                                               
                                             </div>
 
                                             <hr>
-
-                                            <div class="form-group" style="padding-bottom:25px;">
-                                                <label>Servicios</label>
-                                                <table id="servicesTable" class="table table-striped">
-                                                    <thead>
-                                                        <th width="30%">País</th>
-                                                        <th width="30%">Tipo</th>
-                                                        <th width="30%">Importe $</th>
-                                                        <th width="10%"></th>
-                                                    </thead>
+                                           
+                                            <div class="form-group " style="padding-bottom:25px; ">
+                                                <label>Pagos</label>
+                                                <table id="servicesTable " class="table table-striped ">
                                                     <tr>
+                                                        <th width="35% ">Importe</th>
+                                                        <th width="40% ">Forma de Pago</th>
+                                                        <th width="15% ">Fecha</th>
+                                                        <th width="10% "></th>
+                                                    </tr>
+                                                    <tr ng-repeat="pago in tramite.pagos">
                                                         <td>
-                                                            <select class="form-control" ">
-                                                        <option>Australia</option>
-                                                        <option>China</option>
-                                                        <option>Vietnam</option>
-                                                    </select>
-                                                     </td>
-                                                <td>
-                                                    <select class="form-control ">
-                                                        <option>Turista</option>
-                                                        <option>Estudios</option>
-                                                        <option>Negocio</option>
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <div class="form-group input-group ">                                                        
-                                                        <input type="text " class="form-control " placeholder="0.00 ">
-                                                    </div>
-                                                </td>
-                                                <td><button class="btn btn-danger btn-remove " onclick="$(this).parent().parent().remove(); return false; ">X</button></td>              
-                                            </tr>
-                                        </table>
-                                         
-                                        <button class="btn btn-success pull-right " onclick="btnPlusServices_click();return false; ">Agregar Servicio</button>                                        
+                                                            <div class="form-group input-group ">
+                                                                <span class="input-group-addon ">$</span>
+                                                                <input type="number" class="form-control " ng-model="pago.monto" ng-change="calcularTotales()" placeholder="0.00">
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <select class="form-control " ng-model="pago.tipo">
+                                                                <option ng-repeat="formaDePago in formasDePago">{{formaDePago}}</option>                                                    
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                             <md-datepicker ng-model="pago.fecha" md-open-on-focus md-placeholder="seleccionar"></md-datepicker>
+                                                        </td>
 
-                                    </div>
+                                                        <td><button class="btn btn-danger btn-remove " ng-click="quitarPago($index)">X</button></td>
+                                                    </tr>
+                                                    </table>
 
-                                    <hr>                                    
-                                    
-                                    <div class="form-group " style="padding-bottom:35px; ">
-                                        <label>Personas</label>
-                                        <table id="personsTable" class="table table-striped " width="100% " style="width:100%; ">
-                                            <thead>
-                                                <th width="90% "></th>
-                                                <th width="10% "></th>
-                                            </thead>
-                                            <tr>
-                                                <td><input class="form-control " placeholder="Nombre de la persona... "></td>
-                                                <td><div class="col-sm-2 "><button class="btn btn-danger btn-remove " onclick="$(this).parent().parent().parent().remove(); return false; ">X</button></div></td>
-                                            </tr>
-                                        </table>
-                                        <button class="btn btn-primary pull-right " onclick="btnPlusPerson_click(); return false; ">Agregar Persona</button>                           
-                                    </div>
-                                    
-                                    <hr>
-                                    
-                                    <div class="form-group ">
-                      
-                                        <div class="row form-row ">
-                                            <div class="col-md-6 ">
-                                                <label>Empresa</label>
-                                                <input class="form-control " placeholder="Nombre de la empresa... ">
-                                            </div>
-                                            <div class="col-md-6 ">
-                                                <label>Contacto</label>
-                                                <input class="form-control " placeholder="Nombre de la persona... ">                                            
-                                            </div>
-                                        </div>
-                                       
-                                        <div class="row form-row ">
-                                            <div class="col-md-6 ">
-                                                <label>Teléfono móvil</label>
-                                                <input class="form-control " placeholder="Número de teléfono... ">
+                                                    <button class="btn btn-success pull-right" ng-click="agregarPago()">Agregar Pago</button>
 
-                                            </div>
-                                            <div class="col-md-6 ">
-                                                <label>Teléfono(s)</label>
-                                                <input class="form-control " placeholder="Número(s) de teléfono... ">                                            
-                                            </div>
-                                        </div>
-                                        <div class="row form-row ">                                            
-                                            <div class="col-md-6 ">
-                                                <label>E-mail</label>
-                                                <input class="form-control " placeholder="alguien@correo.com ">
-                                            </div>
-                                            <div class="col-md-6 ">
+                                                </div>
+
+
+                                                <hr>
+
+                                                <div class="form-group " style="padding-bottom:25px; ">
+                                                    <label>Servicios</label>
+                                                    <table id="servicesTable " class="table table-striped ">
+                                                        <thead>
+                                                            <th width="60% ">Tipo Servicio</th>
+                                                            <th width="30% ">Precio de Lista</th>
+                                                            <th width="10% "></th>
+                                                        </thead>
+                                                        <tr ng-repeat="servicio in tramite.servicios">
+                                                            <td>
+                                                                <select class="form-control " ng-model="servicio.tipo" ng-change="actualizarPrecioServicio(servicio)">
+                                                                    <option ng-repeat="tipoServicio in tiposServicio">{{tipoServicio.nombre}}</option>
+                                                                </select>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group input-group ">
+                                                                    <span class="input-group-addon ">$</span>
+                                                                    <input type="text " class="form-control " readonly value="{{servicio.precio.toLocaleString()}}">
+                                                                </div>
+                                                            </td>
+                                                            <td><button class="btn btn-danger btn-remove " ng-click="quitarServicio($index)">X</button></td>
+                                                        </tr>
+                                                    </table>
+
+                                                    <button class="btn btn-success pull-right " ng-click="agregarServicio()">Agregar Servicio</button>
+                                                </div>
+
+                                                <hr>
+
+                                                <div class="form-group " style="padding-bottom:35px; ">
+                                                    <label>Personas</label>
+                                                    <table id="personsTable" class="table table-striped " width="100% " style="width:100%; ">
+                                                        <thead>
+                                                            <th width="90% "></th>
+                                                            <th width="10% "></th>
+                                                        </thead>
+                                                        <tr ng-repeat="persona in tramite.personas">
+                                                            <td>
+                                                                <div class="input-group">
+                                                                    <input class="form-control" style="width:50%;" placeholder="Nombre(s)" ng-model="persona.nombre">
+                                                                <input class="form-control" style="width:50%;"  placeholder="Apellido(s) " ng-model="persona.apellido">
+
+                                                                </div>
+                                                                
+                                                            </td>
+                                                            <td>
+                                                                <div class="col-sm-2 "><button class="btn btn-danger btn-remove " ng-click="quitarPersona($index)">X</button></div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <button class="btn btn-primary pull-right " ng-click="agregarPersona()">Agregar Persona</button>
+                                                </div>
+
+                                                <hr>
+
                                                 <div class="form-group ">
-                                                <label>¿Es foráneo?</label>
-                                                <div class="radio ">
-                                                    <label>
+
+                                                    <div class="row form-row ">
+                                                        <div class="col-md-6 ">
+                                                            <label>Empresa</label>
+                                                            <input class="form-control " placeholder="Nombre de la empresa... ">
+                                                        </div>
+                                                        <div class="col-md-6 ">
+                                                            <label>Contacto</label>
+                                                            <input class="form-control " placeholder="Nombre de la persona... ">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row form-row ">
+                                                        <div class="col-md-6 ">
+                                                            <label>Teléfono móvil</label>
+                                                            <input class="form-control " placeholder="Número de teléfono... ">
+
+                                                        </div>
+                                                        <div class="col-md-6 ">
+                                                            <label>Teléfono(s)</label>
+                                                            <input class="form-control " placeholder="Número(s) de teléfono... ">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row form-row ">
+                                                        <div class="col-md-6 ">
+                                                            <label>E-mail</label>
+                                                            <input class="form-control " placeholder="alguien@correo.com ">
+                                                        </div>
+                                                        <div class="col-md-6 ">
+                                                            <div class="form-group ">
+                                                                <label>¿Es foráneo?</label>
+                                                                <div class="radio ">
+                                                                    <label>
                                                         <input type="radio" value="yes " name="rdbForeaneo ">Sí
                                                     </label>
-                                                </div>                                    
-                                                <div class="radio ">
-                                                    <label>
+                                                                </div>
+                                                                <div class="radio ">
+                                                                    <label>
                                                         <input type="radio" value="no " name="rdbForeaneo ">No
                                                     </label>
-                                                </div>                                            
-                                                </div>                    
-                                            </div>                        
-                                        </div>
-                                        
-                                        <div class="form-group ">            
-                                            <label for=" ">Dirección de Envío</label>                                            
-                                            <textarea class="form-control " rows="3 "></textarea>
-                                        </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-                                        <div class="row form-row ">            
-                                             <div class="col-md-6 ">
-                                                <label>Fecha Viaje México</label>
-                                                <input class="form-control datepicker " placeholder="día/mes/año ">                                            
-                                            </div>
-                                             <div class="col-md-6 ">
-                                                <label>Fecha Entrega</label>
-                                                <input class="form-control datepicker " placeholder="día/mes/año ">
-                                            </div>
-                                        </div>
+                                                    <div class="form-group ">
+                                                        <label for=" ">Dirección de Envío</label>
+                                                        <textarea class="form-control " rows="3 "></textarea>
+                                                    </div>
 
-                                        
+                                                    <div class="row form-row ">
+                                                        <div class="col-md-6 ">
+                                                            <label>Fecha Viaje México</label>
+                                                            <input class="form-control datepicker " placeholder="día/mes/año ">
+                                                        </div>
+                                                        <div class="col-md-6 ">
+                                                            <label>Fecha Entrega</label>
+                                                            <input class="form-control datepicker " placeholder="día/mes/año ">
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+                                        </form>
+
+                                        </div>
+                                        <!--<div class="col-lg-6 "></div>-->
                                     </div>
-                                    
-                            </form>
 
-                                    </div>
-                                    <!--<div class="col-lg-6 "></div>-->
+
                                 </div>
-
-                              
+                                <!-- /.panel-body -->
+                            </div>
+                            <!-- /.panel -->
                         </div>
-                        <!-- /.panel-body -->            
+                        <!--/col container-->
+
+                        <div class="col-lg-12 "></div>
                     </div>
-                    <!-- /.panel -->
+                    <!--/main row -->
+
                 </div>
-                <!--/col container-->
+                <!-- /#page-wrapper -->
 
-                <div class="col-lg-12 "></div>
-            </div>    
-            <!--/main row -->
-            
-        </div>
-        <!-- /#page-wrapper -->
-    
-    </div>
-    <!-- /#wrapper -->
+            </div>
+            <!-- /#wrapper -->
 
-    
-    <% include scripts %>
 
-    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js "></script>
+            <% include scripts %>
 
-    <script src="/pages/tramite.js "></script>    
+                
+                <!--<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js "></script>-->
+
+
+                  <!-- Angular Material requires Angular.js Libraries -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+  <!-- Angular Material Library -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+
+                <script src="/pages/tramite.js "></script>
+
+                <script>
+                //     $(function () {
+                //     $(".datepicker ").datepicker();
+                // });
+
+                </script>
 
 </body>
 

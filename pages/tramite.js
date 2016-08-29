@@ -1,12 +1,87 @@
-$( function() {
-            $( ".datepicker " ).datepicker();
-        } );
 
-function btnPlusServices_click(btn) {
-    $('#servicesTable').append('<tr><td> <select class="form-control"> <option>Australia</option> <option>China</option> <option>Vietnam</option> </select> </td> <td> <select class="form-control"> <option>Turista</option> <option>Estudios</option> <option>Negocio</option> </select> </td> <td> <div class="form-group input-group"> <span class="input-group-addon">$</span> <input type="text" class="form-control" placeholder="0.00"> </div> </td> <td><button class="btn btn-danger btn-remove" onclick="$(this).parent().parent().remove(); return false;">X</button></td> </tr>');
 
-};
 
-function btnPlusPerson_click(btn) {
-    $('#personsTable').append('<tr> <td><input class="form-control " placeholder="Nombre de la persona... "></td> <td><div class="col-sm-2"><button class="btn btn-danger btn-remove" onclick="$(this).parent().parent().parent().remove(); return false; " ">X</button></div></td> </tr>');
-};
+angular.module('tuVisaAdmin', ['ngMaterial'])
+    .controller('tramiteController', function ($scope) {
+
+        $scope.formasDePago = ["Efectivo", "Cheque", "Tarjeta"];
+
+        $scope.tiposServicio = [
+            {
+                nombre: 'Canada - Visa Turista',
+                precio: 3500
+            },
+            {
+                nombre: 'China - Visa Negocios',
+                precio: 500
+            }
+        ];
+
+        $scope.tramite = {
+            numero: 0,
+            status: 'Pendiente',
+            pagos: [
+            ],
+            servicios: [
+            ],
+            personas: []
+        };
+
+        $scope.calcularTotales = function (){
+            var totalServicios = 0;
+            $scope.tramite.servicios.forEach(function (servicio) {
+            totalServicios += servicio.precio;
+            }, this);
+            $scope.importeTotal = totalServicios;
+
+            var totalPagos = 0;
+            $scope.tramite.pagos.forEach(function(pago) {
+                totalPagos += pago.monto;
+            }, this);
+            $scope.importePagado = totalPagos;
+
+            $scope.importeDebe = ($scope.importeTotal - $scope.importePagado);
+        };
+       
+
+        $scope.quitarPago = function (index) {
+            $scope.tramite.pagos.splice(index, 1);
+            $scope.calcularTotales();
+        };
+
+        $scope.agregarPago = function () {
+            $scope.tramite.pagos.push({});
+        };
+
+        $scope.agregarServicio = function () {
+            $scope.tramite.servicios.push({});
+        };
+
+        $scope.quitarServicio = function (index) {
+            $scope.tramite.servicios.splice(index, 1);
+            $scope.calcularTotales();
+        };
+
+        $scope.agregarPersona = function () {
+            $scope.tramite.personas.push({});
+        };
+
+        $scope.quitarPersona = function (index) {
+            $scope.tramite.personas.splice(index, 1);
+        };
+
+        $scope.actualizarPrecioServicio = function (servicio) {
+            var servicioDeLista = $.grep($scope.tiposServicio, function (e) { return e.nombre == servicio.tipo; })[0];
+            servicio.precio = servicioDeLista.precio;
+            $scope.calcularTotales();            
+        };
+
+    });
+
+
+
+
+
+
+
+
