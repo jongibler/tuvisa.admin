@@ -36,7 +36,7 @@ angular.module('tuVisaAdmin', ['ngMaterial'])
 
             var totalPagos = 0;
             $scope.tramite.pagos.forEach(function(pago) {
-                totalPagos += pago.monto;
+                totalPagos += pago.monto ? pago.monto : 0;
             }, this);
             $scope.importePagado = totalPagos;
 
