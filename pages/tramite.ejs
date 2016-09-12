@@ -5,7 +5,7 @@
     <% include head %>
 
         <link rel="stylesheet" href="/pages/tramite.css">
-        
+
         <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
 
         <style>
@@ -52,7 +52,7 @@
                                                     Estado del trámite
                                                 </label>
                                                 <div class="form-group input-group">
-                                                    <select class="form-control" ">                                                                                                               
+                                                    <select class="form-control" ng-model="tramite.estatus">
                                                         <option>PENDIENTE</option>
                                                         <option>ENTREGADO</option>
                                                     </select>
@@ -81,11 +81,11 @@
                                                         <input type="text " class="form-control " readonly value="{{importeDebe.toLocaleString()}}">
                                                     </div>
                                                 </div>
-                                               
+
                                             </div>
 
                                             <hr>
-                                           
+
                                             <div class="form-group " style="padding-bottom:25px; ">
                                                 <label>Pagos</label>
                                                 <table id="servicesTable " class="table table-striped ">
@@ -108,287 +108,283 @@
                                                             </select>
                                                         </td>
                                                         <td>
-                                                             <md-datepicker ng-model="pago.fecha" md-open-on-focus md-placeholder="seleccionar"></md-datepicker>
+                                                            <md-datepicker ng-model="pago.fecha" md-open-on-focus md-placeholder="seleccionar"></md-datepicker>
                                                         </td>
 
                                                         <td><button class="btn btn-danger btn-remove " ng-click="quitarPago($index)">X</button></td>
                                                     </tr>
-                                                    </table>
+                                                </table>
 
-                                                    <button class="btn btn-primary pull-right" ng-click="agregarPago()">Agregar Pago</button>
+                                                <button class="btn btn-primary pull-right" ng-click="agregarPago()">Agregar Pago</button>
 
-                                                </div>
+                                            </div>
 
 
-                                                <hr>
+                                            <hr>
 
-                                                <div class="form-group " style="padding-bottom:25px; ">
-                                                    <label>Servicios</label>
-                                                    <table id="servicesTable " class="table table-striped ">
-                                                        <thead>
-                                                            <th width="60% ">Tipo Servicio</th>
-                                                            <th width="30% ">Precio de Lista</th>
-                                                            <th width="10% "></th>
-                                                        </thead>
-                                                        <tr ng-repeat="servicio in tramite.servicios">
-                                                            <td>
-                                                                <select class="form-control " ng-model="servicio.tipo" ng-change="actualizarPrecioServicio(servicio)">
+                                            <div class="form-group " style="padding-bottom:25px; ">
+                                                <label>Servicios</label>
+                                                <table id="servicesTable " class="table table-striped ">
+                                                    <thead>
+                                                        <th width="60% ">Tipo Servicio</th>
+                                                        <th width="30% ">Precio de Lista</th>
+                                                        <th width="10% "></th>
+                                                    </thead>
+                                                    <tr ng-repeat="servicio in tramite.servicios">
+                                                        <td>
+                                                            <select class="form-control " ng-model="servicio.tipo" ng-change="actualizarPrecioServicio(servicio)">
                                                                     <option ng-repeat="tipoServicio in tiposServicio">{{tipoServicio.nombre}}</option>
                                                                 </select>
-                                                            </td>
-                                                            <td>
-                                                                <div class="form-group input-group ">
-                                                                    <span class="input-group-addon ">$</span>
-                                                                    <input type="text " class="form-control " readonly value="{{servicio.precio.toLocaleString()}}">
-                                                                </div>
-                                                            </td>
-                                                            <td><button class="btn btn-danger btn-remove " ng-click="quitarServicio($index)">X</button></td>
-                                                        </tr>
-                                                    </table>
-
-                                                    <button class="btn btn-primary pull-right " ng-click="agregarServicio()">Agregar Servicio</button>
-                                                </div>
-
-                                                <hr>
-
-                                                <div class="form-group " style="padding-bottom:35px; ">
-                                                    <label>Personas</label>
-                                                    <table id="personsTable" class="table table-striped " width="100% " style="width:100%; ">
-                                                        <thead>
-                                                            <th width="90% "></th>
-                                                            <th width="10% "></th>
-                                                        </thead>
-                                                        <tr ng-repeat="persona in tramite.personas">
-                                                            <td>
-                                                                <div class="input-group">
-                                                                    <input class="form-control" style="width:50%;" placeholder="Nombre(s)" ng-model="persona.nombre">
-                                                                <input class="form-control" style="width:50%;"  placeholder="Apellido(s) " ng-model="persona.apellido">
-
-                                                                </div>
-                                                                
-                                                            </td>
-                                                            <td>
-                                                                <div class="col-sm-2 "><button class="btn btn-danger btn-remove " ng-click="quitarPersona($index)">X</button></div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                    <button class="btn btn-primary pull-right " ng-click="agregarPersona()">Agregar Persona</button>
-                                                </div>
-
-                                                <hr>
-
-                                                
-
-                                                <div class="row form-row ">
-                                                    <div class="col-md-6 ">
-                                                        <label>Empresa</label>
-                                                        <input class="form-control " placeholder="Nombre de la empresa... ">
-                                                    </div>
-                                                    <div class="col-md-6 ">
-                                                        <label>Contacto</label>
-                                                        <input class="form-control " placeholder="Nombre de la persona... ">
-                                                    </div>
-                                                </div>
-
-                                                <div class="row form-row ">
-                                                    <div class="col-md-6 ">
-                                                        <label>Teléfono móvil</label>
-                                                        <input class="form-control " placeholder="Número de teléfono... ">
-
-                                                    </div>
-                                                    <div class="col-md-6 ">
-                                                        <label>Teléfono(s)</label>
-                                                        <input class="form-control " placeholder="Número(s) de teléfono... ">
-                                                    </div>
-                                                </div>
-                                                <div class="row form-row ">
-                                                    <div class="col-md-6 ">
-                                                        <label>E-mail</label>
-                                                        <input class="form-control " placeholder="alguien@correo.com ">
-                                                    </div>
-                                                    <div class="col-md-6 ">
-                                                        <div class="form-group ">
-                                                            <label>¿Es foráneo?</label>
-                                                            <div class="radio ">
-                                                                <label>
-                                                    <input type="radio" value="yes " name="rdbForeaneo ">Sí
-                                                </label>
+                                                        </td>
+                                                        <td>
+                                                            <div class="form-group input-group ">
+                                                                <span class="input-group-addon ">$</span>
+                                                                <input type="text " class="form-control " readonly value="{{servicio.precio.toLocaleString()}}">
                                                             </div>
-                                                            <div class="radio ">
-                                                                <label>
-                                                    <input type="radio" value="no " name="rdbForeaneo ">No
-                                                </label>
+                                                        </td>
+                                                        <td><button class="btn btn-danger btn-remove " ng-click="quitarServicio($index)">X</button></td>
+                                                    </tr>
+                                                </table>
+
+                                                <button class="btn btn-primary pull-right " ng-click="agregarServicio()">Agregar Servicio</button>
+                                            </div>
+
+                                            <hr>
+
+                                            <div class="form-group " style="padding-bottom:35px; ">
+                                                <label>Personas</label>
+                                                <table id="personsTable" class="table table-striped " width="100% " style="width:100%; ">
+                                                    <thead>
+                                                        <th width="90% "></th>
+                                                        <th width="10% "></th>
+                                                    </thead>
+                                                    <tr ng-repeat="persona in tramite.personas">
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input class="form-control" style="width:50%;" placeholder="Nombre(s)" ng-model="persona.nombre">
+                                                                <input class="form-control" style="width:50%;" placeholder="Apellido(s) " ng-model="persona.apellido">
+
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
 
-                                                <div class="form-group ">
-                                                    <label for=" ">Dirección de Envío</label>
-                                                    <textarea class="form-control " rows="3 "></textarea>
-                                                </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="col-sm-2 "><button class="btn btn-danger btn-remove " ng-click="quitarPersona($index)">X</button></div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <button class="btn btn-primary pull-right " ng-click="agregarPersona()">Agregar Persona</button>
+                                            </div>
 
-                                                <div class="row form-row ">
-                                                    <div class="col-md-6 ">
-                                                        <label>Fecha Viaje México</label>
-                                                        <input class="form-control datepicker " placeholder="día/mes/año ">
-                                                    </div>
-                                                    <div class="col-md-6 ">
-                                                        <label>Fecha Entrega</label>
-                                                        <input class="form-control datepicker " placeholder="día/mes/año ">
-                                                    </div>
-                                                </div>
+                                            <hr>
 
+
+
+                                            <div class="row form-row ">
+                                                <div class="col-md-6 ">
+                                                    <label>Empresa</label>
+                                                    <input class="form-control " ng-model="tramite.empresa" placeholder="Nombre de la empresa... ">
+                                                </div>
+                                                <div class="col-md-6 ">
+                                                    <label>Contacto</label>
+                                                    <input class="form-control " ng-model="tramite.contacto" placeholder="Nombre de la persona... ">
+                                                </div>
+                                            </div>
+
+                                            <div class="row form-row ">
+                                                <div class="col-md-6 ">
+                                                    <label>Teléfono móvil</label>
+                                                    <input class="form-control " ng-model="tramite.telefonoMovil" placeholder="Número de teléfono... ">
+
+                                                </div>
+                                                <div class="col-md-6 ">
+                                                    <label>Teléfono(s)</label>
+                                                    <input class="form-control " ng-model="tramite.telefono" placeholder="Número(s) de teléfono... ">
+                                                </div>
+                                            </div>
+                                            <div class="row form-row ">
+                                                <div class="col-md-6 ">
+                                                    <label>E-mail</label>
+                                                    <input class="form-control " ng-model="tramite.email" placeholder="alguien@correo.com ">
+                                                </div>
+                                                <div class="col-md-6 ">
                                                     <div class="form-group ">
-                                                    <label for=" ">Fecha(s) Destino(s)</label>
-                                                    <textarea class="form-control " rows="3 "></textarea>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>Documentos Requeridos:</label>
-                                                </div>
-                                                <div class="form-group">                                                        
-                                                    <div class="col-sm-4">                                                                
-                                                        <div class="checkbox">
+                                                        <label>¿Es foráneo?</label>
+                                                        <div class="radio ">
                                                             <label>
-                                                                <input type="checkbox" value="">Pasaporte
-                                                            </label>
+                                                    <input type="radio"  ng-model="tramite.esForaneo"  value="yes " name="rdbForeaneo ">Sí
+                                                </label>
                                                         </div>
-                                                        <div class="checkbox">
+                                                        <div class="radio ">
                                                             <label>
+                                                    <input type="radio" ng-model="tramite.esForaneo" value="no " name="rdbForeaneo ">No
+                                                </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group ">
+                                                <label for=" ">Dirección de Envío</label>
+                                                <textarea class="form-control " ng-model="tramite.direccionDeEnvio" rows="3 "></textarea>
+                                            </div>
+
+                                            <div class="row form-row ">
+                                                <div class="col-md-6 ">
+                                                    <label>Fecha Viaje México</label>
+                                                    <input ng-model="tramite.fechaViajeMexico" class="form-control datepicker " placeholder="día/mes/año ">
+                                                </div>
+                                                <div class="col-md-6 ">
+                                                    <label>Fecha Entrega</label>
+                                                    <input ng-model="tramite.fechaEntrega" class="form-control datepicker " placeholder="día/mes/año ">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group ">
+                                                <label for=" ">Fecha(s) Destino(s)</label>
+                                                <textarea ng-model="tramite.fechasDestino" class="form-control " rows="3 "></textarea>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Documentos Requeridos:</label>
+                                            </div>
+                                            <div id="divDocumentosRequeridos" class="form-group">
+                                                <div class="col-sm-4">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" value="">Pasaporte
+                                                        </label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label>
                                                                 <input type="checkbox" value="">Solicitud
                                                             </label>
-                                                        </div>
-                                                        <div class="checkbox">                                                                                                                                        
-                                                            <select name="" id="">
+                                                    </div>
+                                                    <div class="checkbox">
+                                                             <label>                                                                 
+                                                                <input type="checkbox" value="">Fotografía(s)
+                                                            </label>
+                                                             <select name="" id="">
                                                                 <option value="">1</option>
                                                                 <option value="">2</option>
                                                                 <option value="">3</option>
                                                                 <option value="">4</option>
                                                             </select>
-                                                            Fotografía(s)
-                                                        </div>
-                                                        <div class="checkbox">
-                                                            <label>
+                                                                                                                
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label>
                                                                 <input type="checkbox" value="">Exámenes Médicos
                                                             </label>
-                                                        </div>
-                                                        <div class="checkbox">
-                                                            <label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label>
                                                                 <input type="checkbox" value="">Pasaporte Extranjero
                                                             </label>
-                                                        </div>
                                                     </div>
-                                                        <div class="col-sm-4">
-                                                        <div class="checkbox">
-                                                            <label>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="checkbox">
+                                                        <label>
                                                                 <input type="checkbox" value="">Solvencia
                                                             </label>
-                                                        </div>
-                                                        <div class="checkbox">
-                                                            <label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label>
                                                                 <input type="checkbox" value="">Itinerario (vuelos/barcos)
                                                             </label>
-                                                        </div>
-                                                        <div class="checkbox">
-                                                            <label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label>
                                                                 <input type="checkbox" value="">Hotel
                                                             </label>
-                                                        </div>
-                                                        <div class="checkbox">
-                                                            <label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label>
                                                                 <input type="checkbox" value="">FM-Residente Legal
                                                             </label>
-                                                        </div>
                                                     </div>
-                                                    <div class="col-sm-4">
-                                                        <div class="checkbox">
-                                                            <label>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="checkbox">
+                                                        <label>
                                                                 <input type="checkbox" value="">Carta de Empresa México
                                                             </label>
-                                                        </div>
-                                                        <div class="checkbox">
-                                                            <label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label>
                                                                 <input type="checkbox" value="">Carta de Invitación
                                                             </label>
-                                                        </div>
-                                                        <div class="checkbox">
-                                                            <label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label>
                                                                 <input type="checkbox" value="">Carta de Aceptación
                                                             </label>
-                                                        </div>
-                                                        <div class="checkbox">
-                                                            <label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label>
                                                                 <input type="checkbox" value="">Visa U.S.A.
                                                             </label>
-                                                        </div>
-                                                    </div>                                                                                                           
+                                                    </div>
                                                 </div>
-                                                <div class="row form-row "></div>
+                                            </div>
+                                            <div class="row form-row "></div>
 
-                                                <div class="form-group">
-                                                    <label for="txtDocumentosRequeridos">Otros Documentos Requeridos:</label> (uno por línea) 
-                                                    <textarea id="txtDocumentosRequeridos" class="form-control " rows="3 "></textarea>                                                                                                                        
-                                                </div>
-                                                    
-                                                <div class="form-group ">
-                                                    <label for=" ">Observaciones</label>
-                                                    <textarea class="form-control " rows="3 "></textarea>
-                                                </div>
+                                            <div class="form-group">
+                                                <label for="txtDocumentosRequeridos">Otros Documentos Requeridos:</label>                                                (uno por línea)
+                                                <textarea id="txtDocumentosRequeridos" class="form-control " rows="3 "></textarea>
+                                            </div>
 
-                                                <button type="button" class="btn btn-success btn-lg pull-right">Guardar Trámite</button>
+                                            <div class="form-group ">
+                                                <label for=" ">Observaciones</label>
+                                                <textarea class="form-control " rows="3 "></textarea>
+                                            </div>
 
-                                            </div>                                            
+                                            <button type="button" class="btn btn-success btn-lg pull-right" ng-click="guardarTramite()">Guardar Trámite</button>
 
-                                        </form>
-
-                                        </div>
-                                        <!--<div class="col-lg-6 "></div>-->
                                     </div>
 
+                                    </form>
 
                                 </div>
-                                <!-- /.panel-body -->
+                                <!--<div class="col-lg-6 "></div>-->
                             </div>
-                            <!-- /.panel -->
+
+
                         </div>
-                        <!--/col container-->
-
-                        <div class="col-lg-12 "></div>
+                        <!-- /.panel-body -->
                     </div>
-                    <!--/main row -->
-
+                    <!-- /.panel -->
                 </div>
-                <!-- /#page-wrapper -->
+                <!--/col container-->
 
+                <div class="col-lg-12 "></div>
             </div>
-            <!-- /#wrapper -->
+            <!--/main row -->
+
+    </div>
+    <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
 
 
-            <% include scripts %>
-
-                
-                <!--<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js "></script>-->
+    <% include scripts %>
 
 
-                  <!-- Angular Material requires Angular.js Libraries -->
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+        <!--<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js "></script>-->
 
-  <!-- Angular Material Library -->
-  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
 
-                <script src="/pages/tramite.js "></script>
+        <!-- Angular Material requires Angular.js Libraries -->
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
 
-                <script>
-                //     $(function () {
-                //     $(".datepicker ").datepicker();
-                // });
+        <!-- Angular Material Library -->
+        <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
 
-                </script>
+        <script src="/pages/tramite.js "></script>
 
-</body>
+       
 
 </html>

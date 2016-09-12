@@ -16,7 +16,7 @@ angular.module('tuVisaAdmin', ['ngMaterial'])
 
         $scope.tramite = {
             numero: 0,
-            status: 'Pendiente',
+            estatus: 'PENDIENTE',
             pagos: [
             ],
             servicios: [
@@ -71,6 +71,10 @@ angular.module('tuVisaAdmin', ['ngMaterial'])
             var servicioDeLista = $.grep($scope.tiposServicio, function (e) { return e.nombre == servicio.tipo; })[0];
             servicio.precio = servicioDeLista.precio;
             $scope.calcularTotales();            
+        };
+
+        $scope.guardarTramite = function() {
+            console.log($scope.tramite);
         };
 
     });
