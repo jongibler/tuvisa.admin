@@ -4,9 +4,12 @@
   "description": "[SB Admin 2](http://startbootstrap.com/template-overviews/sb-admin-2/) is an open source, admin dashboard template for [Bootstrap](http://getbootstrap.com/) created by [Start Bootstrap](http://startbootstrap.com/).",
   "main": "app.js",
   "dependencies": {
+    "body-parser": "^1.15.2",
     "bower": "^1.7.9",
     "ejs": "^2.5.1",
-    "express": "^4.14.0"
+    "express": "^4.14.0",
+    "mongoose": "^4.6.0",    
+    "mongoose-sequence": "^3.0.2"
   },
   "devDependencies": {},
   "scripts": {

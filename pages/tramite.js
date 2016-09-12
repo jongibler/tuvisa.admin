@@ -1,5 +1,5 @@
 angular.module('tuVisaAdmin', ['ngMaterial'])
-    .controller('tramiteController', function ($scope) {
+    .controller('tramiteController', function ($scope, $http) {
 
         $scope.formasDePago = ["Efectivo", "Cheque", "Tarjeta"];
 
@@ -74,15 +74,14 @@ angular.module('tuVisaAdmin', ['ngMaterial'])
         };
 
         $scope.guardarTramite = function() {
-            console.log($scope.tramite);
-        };
+           $http.post('/api/tramite', $scope.tramite)
+            .then(function(res){
+                console.log(res);
+                //redirect
+            },function(res) {
+                console.log('Error:' + res.data);
+            });
+        };       
 
     });
-
-
-
-
-
-
-
 
