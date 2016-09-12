@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
+var utils = require('../utils.js');
 router.use(bodyParser.json());
 
 var Tramite = require('../models/Tramite.js');
@@ -10,17 +11,16 @@ router.post('/', function (req, res) {
 
     var tramite = new Tramite();
 
-    for (var k in req.body) tramite[k] = req.body[k];
+    utils.copyPropsByName(req.body, tramite);
 
-    tramite.save(function (err) {
+    Tramite.findOneAndUpdate({ _id: tramite._id }, tramite, { upsert: true }, function (err, result) {
         if (err) {
-            console.log(err);
-            res.status(500).send("Error al guardar el trámite");
+            res.status(500).send(err);
+            return;
         }
-        else {
-            res.send(tramite);
-        }
+        res.json(result);
     });
+   
 });
 
 router.get('/:numero', function (req, res) {
@@ -29,10 +29,11 @@ router.get('/:numero', function (req, res) {
         if (err) {
             console.log(err);
             res.status(500).send("No se pudo encontrar el trámite");
+            return;
         }
         else {
             console.log("found" + tramite);
-            res.send(tramite);
+            res.json(tramite);            
         }
     });
 });

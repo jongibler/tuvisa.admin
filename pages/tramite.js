@@ -1,5 +1,5 @@
 angular.module('tuVisaAdmin', ['ngMaterial'])
-    .controller('tramiteController', function ($scope, $http, $location) {
+    .controller('tramiteController', function ($scope, $http, $location, $window) {
 
         $scope.formasDePago = ["Efectivo", "Cheque", "Tarjeta"];
 
@@ -25,21 +25,34 @@ angular.module('tuVisaAdmin', ['ngMaterial'])
             };
         }
         else {
-            var numeroTramite = parseInt();
+            var numeroTramite = parseInt(urlId);
             if (isNaN(numeroTramite)) {
-                $location.path('/tramites');
+                $window.location.href = '/tramites';
             }
             else {
                 $http.get('/api/tramite/' + numeroTramite)
                     .then(function (res) {
-                        console.log("got" + res.data);
-                        $scope.tramite = res.data;
+                        if (res.data == null) {
+                            $window.location.href = '/tramites';                            
+                        }                            
+                        $scope.tramite = res.data;                        
+                        //process dates for md-datepicker (need to find a better way...)
+                        $scope.tramite.fechaViajeMexico = new Date($scope.tramite.fechaViajeMexico);
+                        $scope.tramite.fechaEntrega = new Date($scope.tramite.fechaEntrega);
+                        $scope.tramite.pagos.forEach(function(element) {
+                            element.fecha = new Date(element.fecha);
+                        }, this);
+
+                        //process for select
+                        $scope.tramite.numFotografias = $scope.tramite.numFotografias.toString(); 
+
+                        $scope.calcularTotales();
+
                     }, function (res) {
                         console.log('Error:' + res.data);
                     });
             }
         }
-
 
         $scope.calcularTotales = function () {
             var totalServicios = 0;
@@ -92,9 +105,8 @@ angular.module('tuVisaAdmin', ['ngMaterial'])
 
         $scope.guardarTramite = function () {
             $http.post('/api/tramite', $scope.tramite)
-                .then(function (res) {
-                    console.log(res);
-                    //redirect
+                .then(function (res) {                    
+                   $window.location.href ="/tramites";
                 }, function (res) {
                     console.log('Error:' + res.data);
                 });

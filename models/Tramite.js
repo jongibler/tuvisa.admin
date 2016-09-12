@@ -32,7 +32,9 @@ var tramiteSchema = new mongoose.Schema({
     reqCartaEmpresaMexico: Boolean,
     reqCartaInvitacion: Boolean,
     reqCartaAceptacion: Boolean,
-    reqVisaUSA: Boolean
+    reqVisaUSA: Boolean,
+    otrosDocsRequeridos: String,
+    observaciones: String
 });
 
 var AutoIncrement = require('mongoose-sequence');
