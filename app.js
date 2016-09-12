@@ -24,7 +24,7 @@ app.get('/tramites', function (req, res) {
   res.render(__dirname + '/pages/tramites.ejs');
 });
 
-app.get('/tramite', function (req, res) {
+app.get('/tramite/:id', function (req, res) {  
   res.render(__dirname + '/pages/tramite.ejs');
 });
 
