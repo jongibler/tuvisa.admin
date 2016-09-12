@@ -44,7 +44,10 @@ angular.module('tuVisaAdmin', ['ngMaterial'])
                         }, this);
 
                         //process for select
-                        $scope.tramite.numFotografias = $scope.tramite.numFotografias.toString(); 
+                        if ($scope.tramite.numFotografias) {
+                            $scope.tramite.numFotografias = $scope.tramite.numFotografias.toString();
+                        }
+                         
 
                         $scope.calcularTotales();
 
@@ -104,6 +107,10 @@ angular.module('tuVisaAdmin', ['ngMaterial'])
         };
 
         $scope.guardarTramite = function () {
+            $scope.tramite.totalPagos = $scope.importePagado;
+            $scope.tramite.totalCosto = $scope.importeTotal;
+            $scope.tramite.totalDebe = $scope.importeTotal - $scope.importePagado;            
+
             $http.post('/api/tramite', $scope.tramite)
                 .then(function (res) {                    
                    $window.location.href ="/tramites";

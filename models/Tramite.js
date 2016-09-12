@@ -34,7 +34,10 @@ var tramiteSchema = new mongoose.Schema({
     reqCartaAceptacion: Boolean,
     reqVisaUSA: Boolean,
     otrosDocsRequeridos: String,
-    observaciones: String
+    observaciones: String,
+    totalPagos: Number,
+    totalCosto: Number,
+    totalDebe: Number
 });
 
 var AutoIncrement = require('mongoose-sequence');
