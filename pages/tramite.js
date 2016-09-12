@@ -1,6 +1,3 @@
-
-
-
 angular.module('tuVisaAdmin', ['ngMaterial'])
     .controller('tramiteController', function ($scope) {
 

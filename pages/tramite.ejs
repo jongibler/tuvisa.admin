@@ -172,75 +172,171 @@
                                                             </td>
                                                         </tr>
                                                     </table>
-                                                    <button class="btn btn-primary pull-right " ng-click="agregarPersona()">Agregar Persona</button>
+                                                    <button class="btn btn-success pull-right " ng-click="agregarPersona()">Agregar Persona</button>
                                                 </div>
 
                                                 <hr>
 
-                                                <div class="form-group ">
+                                                
 
-                                                    <div class="row form-row ">
-                                                        <div class="col-md-6 ">
-                                                            <label>Empresa</label>
-                                                            <input class="form-control " placeholder="Nombre de la empresa... ">
-                                                        </div>
-                                                        <div class="col-md-6 ">
-                                                            <label>Contacto</label>
-                                                            <input class="form-control " placeholder="Nombre de la persona... ">
-                                                        </div>
+                                                <div class="row form-row ">
+                                                    <div class="col-md-6 ">
+                                                        <label>Empresa</label>
+                                                        <input class="form-control " placeholder="Nombre de la empresa... ">
                                                     </div>
-
-                                                    <div class="row form-row ">
-                                                        <div class="col-md-6 ">
-                                                            <label>Teléfono móvil</label>
-                                                            <input class="form-control " placeholder="Número de teléfono... ">
-
-                                                        </div>
-                                                        <div class="col-md-6 ">
-                                                            <label>Teléfono(s)</label>
-                                                            <input class="form-control " placeholder="Número(s) de teléfono... ">
-                                                        </div>
+                                                    <div class="col-md-6 ">
+                                                        <label>Contacto</label>
+                                                        <input class="form-control " placeholder="Nombre de la persona... ">
                                                     </div>
-                                                    <div class="row form-row ">
-                                                        <div class="col-md-6 ">
-                                                            <label>E-mail</label>
-                                                            <input class="form-control " placeholder="alguien@correo.com ">
-                                                        </div>
-                                                        <div class="col-md-6 ">
-                                                            <div class="form-group ">
-                                                                <label>¿Es foráneo?</label>
-                                                                <div class="radio ">
-                                                                    <label>
-                                                        <input type="radio" value="yes " name="rdbForeaneo ">Sí
-                                                    </label>
-                                                                </div>
-                                                                <div class="radio ">
-                                                                    <label>
-                                                        <input type="radio" value="no " name="rdbForeaneo ">No
-                                                    </label>
-                                                                </div>
+                                                </div>
+
+                                                <div class="row form-row ">
+                                                    <div class="col-md-6 ">
+                                                        <label>Teléfono móvil</label>
+                                                        <input class="form-control " placeholder="Número de teléfono... ">
+
+                                                    </div>
+                                                    <div class="col-md-6 ">
+                                                        <label>Teléfono(s)</label>
+                                                        <input class="form-control " placeholder="Número(s) de teléfono... ">
+                                                    </div>
+                                                </div>
+                                                <div class="row form-row ">
+                                                    <div class="col-md-6 ">
+                                                        <label>E-mail</label>
+                                                        <input class="form-control " placeholder="alguien@correo.com ">
+                                                    </div>
+                                                    <div class="col-md-6 ">
+                                                        <div class="form-group ">
+                                                            <label>¿Es foráneo?</label>
+                                                            <div class="radio ">
+                                                                <label>
+                                                    <input type="radio" value="yes " name="rdbForeaneo ">Sí
+                                                </label>
+                                                            </div>
+                                                            <div class="radio ">
+                                                                <label>
+                                                    <input type="radio" value="no " name="rdbForeaneo ">No
+                                                </label>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div>
+
+                                                <div class="form-group ">
+                                                    <label for=" ">Dirección de Envío</label>
+                                                    <textarea class="form-control " rows="3 "></textarea>
+                                                </div>
+
+                                                <div class="row form-row ">
+                                                    <div class="col-md-6 ">
+                                                        <label>Fecha Viaje México</label>
+                                                        <input class="form-control datepicker " placeholder="día/mes/año ">
+                                                    </div>
+                                                    <div class="col-md-6 ">
+                                                        <label>Fecha Entrega</label>
+                                                        <input class="form-control datepicker " placeholder="día/mes/año ">
+                                                    </div>
+                                                </div>
 
                                                     <div class="form-group ">
-                                                        <label for=" ">Dirección de Envío</label>
-                                                        <textarea class="form-control " rows="3 "></textarea>
-                                                    </div>
-
-                                                    <div class="row form-row ">
-                                                        <div class="col-md-6 ">
-                                                            <label>Fecha Viaje México</label>
-                                                            <input class="form-control datepicker " placeholder="día/mes/año ">
-                                                        </div>
-                                                        <div class="col-md-6 ">
-                                                            <label>Fecha Entrega</label>
-                                                            <input class="form-control datepicker " placeholder="día/mes/año ">
-                                                        </div>
-                                                    </div>
-
-
+                                                    <label for=" ">Fecha(s) Destino(s)</label>
+                                                    <textarea class="form-control " rows="3 "></textarea>
                                                 </div>
+
+                                                <div class="form-group">
+                                                    <label>Documentos:</label>
+                                                </div>
+                                                <div class="form-group">                                                        
+                                                    <div class="col-sm-4">                                                                
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" value="">Pasaporte
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" value="">Solicitud
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">                                                                                                                                        
+                                                            <select name="" id="">
+                                                                <option value="">1</option>
+                                                                <option value="">2</option>
+                                                                <option value="">3</option>
+                                                                <option value="">4</option>
+                                                            </select>
+                                                            Fotografía(s)
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" value="">Exámenes Médicos
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" value="">Pasaporte Extranjero
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                        <div class="col-sm-4">
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" value="">Solvencia
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" value="">Itinerario (vuelos/barcos)
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" value="">Hotel
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" value="">FM-Residente Legal
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" value="">Carta de Empresa México
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" value="">Carta de Invitación
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" value="">Carta de Aceptación
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" value="">Visa U.S.A.
+                                                            </label>
+                                                        </div>
+                                                    </div>                                                                                                           
+                                                </div>                                                    
+                                                <div class="form-group">
+                                                    Otros Documentos:
+                                                    <textarea class="form-control " rows="3 "></textarea>                                                                                                                        
+                                                </div>
+                                                    
+                                                <div class="form-group ">
+                                                    <label for=" ">Observaciones</label>
+                                                    <textarea class="form-control " rows="3 "></textarea>
+                                                </div>
+
+                                                <button type="button" class="btn btn-primary btn-lg btn-block">GUARDAR</button>
+
+                                            </div>                                            
 
                                         </form>
 
