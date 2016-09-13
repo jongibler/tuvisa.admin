@@ -107,6 +107,21 @@ angular.module('tuVisaAdmin', ['ngMaterial'])
         };
 
         $scope.guardarTramite = function () {
+            //validations
+            if (!$scope.importeTotal) {
+                alert('Favor de capturar por lo menos un servicio...');
+                return;
+            }
+            if (!$scope.tramite.contacto || $scope.tramite.contacto.trim() == '') {
+                alert('Favor de capturar el contacto...');
+                return;
+            }
+            if (!$scope.tramite.fechaEntrega || isNaN(Date.parse($scope.tramite.fechaEntrega))) {
+                alert('Favor de seleccionar una fecha de entrega...');
+                return;
+            }
+
+
             $scope.tramite.totalPagos = $scope.importePagado;
             $scope.tramite.totalCosto = $scope.importeTotal;
             $scope.tramite.totalDebe = $scope.importeTotal - $scope.importePagado;            
